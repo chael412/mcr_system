@@ -1,0 +1,14 @@
+import { useMemo } from "react";
+
+const useAppUrl = () => {
+    // Define the URL constants for offline and online environments
+    const appUrl = "http://localhost:8000";
+
+    const API_URL = useMemo(() => {
+        return appUrl;
+    }, []);
+
+    return API_URL;
+};
+
+export default useAppUrl;
