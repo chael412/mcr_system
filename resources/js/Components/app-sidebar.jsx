@@ -1,3 +1,4 @@
+import { AiFillFileText } from "react-icons/ai";
 import { HiUsers } from "react-icons/hi";
 import * as React from "react";
 import {
@@ -34,8 +35,8 @@ export function AppSidebar({ ...props }) {
     const data = {
         teams: [
             {
-                name: "MCR",
-                logo: GalleryVerticalEnd,
+                name: "MCRO File System",
+                logo: "/img/cvrs-logo.png",
                 plan: "Enterprise",
             },
         ],
@@ -47,25 +48,37 @@ export function AppSidebar({ ...props }) {
                 isActive: url === route("dashboard", {}, false),
             },
             {
-                title: "Family Members",
-                url: route("family_members.index"),
-                icon: HiUsers,
+                title: "Birth Certificates",
+                url: route("birth_certificates.index"),
+                icon: AiFillFileText,
                 isActive:
-                    url === route("family_members.index", {}, false) ||
-                    url === route("family_members.create", {}, false) ||
-                    (url.includes("/family_members/") &&
+                    url === route("birth_certificates.index", {}, false) ||
+                    url === route("birth_certificates.create", {}, false) ||
+                    (url.includes("/birth_certificates/") &&
                         url.includes("/edit")) ||
-                    url.includes("/family_members/"),
+                    url.includes("/birth_certificates/"),
             },
             {
-                title: "Family Heads",
-                url: route("family_heads.index"),
-                icon: HiUsers,
+                title: "Marriage Certificates",
+                url: route("marriage_certificates.index"),
+                icon: AiFillFileText,
                 isActive:
-                    url === route("family_heads.index", {}, false) ||
-                    url === route("family_heads.create", {}, false) ||
-                    (url.includes("/family_heads/") && url.includes("/edit")) ||
-                    url.includes("/family_heads/"),
+                    url === route("marriage_certificates.index", {}, false) ||
+                    url === route("marriage_certificates.create", {}, false) ||
+                    (url.includes("/marriage_certificates/") &&
+                        url.includes("/edit")) ||
+                    url.includes("/marriage_certificates/"),
+            },
+            {
+                title: "Death Certificates",
+                url: route("death_certificates.index"),
+                icon: AiFillFileText,
+                isActive:
+                    url === route("death_certificates.index", {}, false) ||
+                    url === route("death_certificates.create", {}, false) ||
+                    (url.includes("/death_certificates/") &&
+                        url.includes("/edit")) ||
+                    url.includes("/death_certificates/"),
             },
         ],
     };

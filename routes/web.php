@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Main\BirthCertificateController;
+use App\Http\Controllers\Main\DeathCertificateController;
 use App\Http\Controllers\Main\FamilyHeadController;
 use App\Http\Controllers\Main\FamilyMemberController;
+use App\Http\Controllers\Main\MarriageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +26,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('family_heads', FamilyHeadController::class)->names('family_heads');
 
     Route::resource('family_members', FamilyMemberController::class);
+    Route::resource('birth_certificates', BirthCertificateController::class)->names('birth_certificates');
+    Route::resource('marriage_certificates', MarriageController::class)->names('marriage_certificates');
+    Route::resource('death_certificates', DeathCertificateController::class)->names('death_certificates');
+
+
+
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

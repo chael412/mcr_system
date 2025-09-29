@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             // RolePermissionSeeder::class,
             // GuestUserSeeder::class
-            BarangaySeeder::class,
-            FamilyHeadSeeder::class,
-            FamilyMemberSeeder::class,
+            // BarangaySeeder::class,
+            // FamilyHeadSeeder::class,
+            // FamilyMemberSeeder::class,
         ]);
     }
 }
