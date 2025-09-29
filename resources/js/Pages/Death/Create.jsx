@@ -55,7 +55,7 @@ const Create = () => {
             console.log("Sending Payload:", data);
 
             const response = await axios.post(
-                "http://localhost:8000/api/store_deathcertificate",
+                `${API_URL}/api/store_deathcertificate`,
                 formData,
                 {
                     headers: {

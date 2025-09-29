@@ -74,7 +74,7 @@ const Edit = ({ birth }) => {
 
         try {
             const response = await await axios.post(
-                `http://localhost:8000/api/update_birthcertificate/${birthId}`,
+                `${API_URL}/api/update_birthcertificate/${birthId}`,
                 formData,
                 {
                     headers: {

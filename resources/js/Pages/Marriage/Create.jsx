@@ -61,7 +61,7 @@ const Create = () => {
             console.log("Sending Payload:", data);
 
             const response = await axios.post(
-                "http://localhost:8000/api/store_marriagecertificate",
+                `${API_URL}/api/store_marriagecertificate`,
                 formData,
                 {
                     headers: {

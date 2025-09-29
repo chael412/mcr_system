@@ -65,7 +65,7 @@ const Create = () => {
             console.log("Sending Payload:", data);
 
             const response = await axios.post(
-                "http://localhost:8000/api/store_birthcertificate",
+                `${API_URL}/api/store_birthcertificate`,
                 formData,
                 {
                     headers: {
@@ -75,8 +75,8 @@ const Create = () => {
             );
 
             if (response.status === 200 || response.status === 201) {
-                alert("Birth Certificate added successfully!");
-                //window.location.reload();
+                alert("Birth certificate record added successfully!");
+                window.location.reload();
                 // reset();
             }
         } catch (error) {

@@ -64,7 +64,7 @@ const Edit = ({ death }) => {
 
         try {
             const response = await await axios.post(
-                `http://localhost:8000/api/update_deathcertificate/${deathId}`,
+                `${API_URL}/api/update_deathcertificate/${deathId}`,
                 formData,
                 {
                     headers: {
