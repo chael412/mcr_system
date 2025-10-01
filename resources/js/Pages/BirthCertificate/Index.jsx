@@ -84,6 +84,24 @@ const Index = () => {
         }
     };
 
+    const handleOpenPdf = (filePath) => {
+        if (!filePath) {
+            alert("No PDF file found for this record.");
+            return;
+        }
+        const fileUrl = `${window.location.origin}/${filePath}`;
+        const win = window.open(fileUrl, "_blank");
+        if (win) win.focus();
+    };
+
+    const handlePrintPdf = (filePath) => {
+        const fileUrl = `${window.location.origin}/${filePath}`;
+        const win = window.open(fileUrl, "_blank");
+        if (win) {
+            win.onload = () => win.print();
+        }
+    };
+
     return (
         <AuthenticatedLayout
             header={
@@ -220,19 +238,17 @@ const Index = () => {
                                                     Action
                                                 </DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
-                                                <Link
-                                                    className="hover:bg-blue-800 hover:rounded hover:text-white"
-                                                    href={route(
-                                                        "birth_certificates.show",
-                                                        {
-                                                            id: member.id,
-                                                        }
-                                                    )}
+
+                                                <DropdownMenuItem
+                                                    onClick={() =>
+                                                        handlePrintPdf(
+                                                            member.file
+                                                        )
+                                                    }
+                                                    className="hover:bg-gray-200 cursor-pointer"
                                                 >
-                                                    <DropdownMenuItem className="hover:bg-gray-200 cursor-pointer">
-                                                        View Details
-                                                    </DropdownMenuItem>
-                                                </Link>
+                                                    Print PDF
+                                                </DropdownMenuItem>
 
                                                 <Link
                                                     className="hover:bg-blue-800 hover:rounded hover:text-white"
