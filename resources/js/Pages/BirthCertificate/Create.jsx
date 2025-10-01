@@ -229,7 +229,7 @@ const Create = () => {
                         </div>
 
                         <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
-                            <Link href="/family_members">
+                            <Link href="/birth_certificates">
                                 <Button type="button" variant="outline">
                                     Cancel
                                 </Button>
