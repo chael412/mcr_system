@@ -59,7 +59,7 @@ const Index = () => {
         { key: "date_of_registration", label: "Date of Registration" },
         { key: "lastname", label: "Person Name" },
         { key: "sex", label: "Sex" },
-        { key: "date_birth", label: "Date of Birthdate" },
+        { key: "date_birth", label: "Date of Birth" },
         { key: "place_birth", label: "Place of Birth" },
         { key: "", label: "Action" },
     ];
