@@ -12,29 +12,29 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url
 ).toString();
 
-const Show = ({ member }) => {
+const Show = ({ birth_certificate }) => {
     const API_URL = useAppUrl();
     const [numPages, setNumPages] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showContent, setShowContent] = useState(false); // 👈 for 3s delay
 
-    const fileUrl = member.birth_certificate
-        ? `${API_URL}/${member.birth_certificate}`
+    console.log(birth_certificate);
+
+    const fileUrl = birth_certificate.file
+        ? `${API_URL}/${birth_certificate.file}`
         : null;
 
     useEffect(() => {
-        // Stop loading if no birth_certificate
-        if (!member.birth_certificate) {
+        if (!birth_certificate.file) {
             setLoading(false);
         }
 
-        // 👇 Delay 3s before showing content
         const timer = setTimeout(() => {
             setShowContent(true);
         }, 800);
 
         return () => clearTimeout(timer);
-    }, [member.birth_certificate]);
+    }, [birth_certificate.file]);
 
     const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages);
@@ -48,9 +48,11 @@ const Show = ({ member }) => {
 
     return (
         <AuthenticatedLayout
-            header={<h2 className="text-xl font-semibold">Family Member</h2>}
+            header={
+                <h2 className="text-xl font-semibold">Birth Certificates</h2>
+            }
         >
-            <Head title="Family Members" />
+            <Head title="Birth Certificates" />
             <div className="flex flex-col items-center">
                 <div className="px-4 py-1">
                     {/* Spinner while waiting */}
@@ -68,9 +70,9 @@ const Show = ({ member }) => {
                         <>
                             <div className="flex justify-center gap-2 font-semibold text-xl bg-gray-200 px-4 py-2 mb-1">
                                 <h3>
-                                    {`${member.firstname} ${
-                                        member.middlename ?? ""
-                                    } ${member.lastname}`}
+                                    {`${birth_certificate.firstname} ${
+                                        birth_certificate.middlename ?? ""
+                                    } ${birth_certificate.lastname}`}
                                 </h3>
                                 <span>Birth Certificate</span>
                             </div>
