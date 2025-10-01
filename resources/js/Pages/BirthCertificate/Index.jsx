@@ -59,7 +59,8 @@ const Index = () => {
         { key: "date_of_registration", label: "Date of Registration" },
         { key: "lastname", label: "Person Name" },
         { key: "sex", label: "Sex" },
-        { key: "date_birthdate", label: "Place Birthdate" },
+        { key: "date_birth", label: "Date of Birthdate" },
+        { key: "place_birth", label: "Place of Birth" },
         { key: "", label: "Action" },
     ];
 
@@ -181,7 +182,7 @@ const Index = () => {
                         <TableBody>
                             {isLoading && (
                                 <TableRow>
-                                    <TableCell colSpan="5">
+                                    <TableCell colSpan="7">
                                         <span className="flex flex-col justify-center items-center py-4 text-green-800">
                                             fetching data...
                                             <ClipLoader
@@ -221,6 +222,9 @@ const Index = () => {
                                                   "dd-MMM-yyyy"
                                               ).toUpperCase()
                                             : "n/a"}
+                                    </TableCell>
+                                    <TableCell className="border-2 py-0 px-2">
+                                        {member.place_birth ?? "n/a"}
                                     </TableCell>
 
                                     <TableCell className="border-2 py-0 px-2">
