@@ -117,7 +117,7 @@ class MarriageController extends Controller
 
                 // Clean lastname & firstname (remove spaces)
                 $lastname = preg_replace('/\s+/', '', $validated['husband_firstname']);
-                $firstname = preg_replace('/\s+/', '', $validated['wife`_firstname']);
+                $firstname = preg_replace('/\s+/', '', $validated['wife_firstname']);
 
                 // Get extension (pdf, jpg, etc.)
                 $extension = $file->getClientOriginalExtension();
