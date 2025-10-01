@@ -2,10 +2,8 @@ import PdfViewer from "@/Components/PdfViewer";
 import React from "react";
 import { pdfjs } from "react-pdf";
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    "pdfjs-dist/build/pdf.worker.min.mjs",
-    import.meta.url
-).toString();
+// ✅ point worker to CDN (fixes MIME issue on deployment)
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const Show = () => {
     return (
