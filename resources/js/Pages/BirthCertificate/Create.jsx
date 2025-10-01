@@ -26,6 +26,7 @@ const Create = () => {
     const [barangays, setBarangays] = useState([]);
     const [selectedFamilyHeadId, setSelectedFamilyHeadId] = useState("");
     const [selectedSex, setSelectedSex] = useState("");
+    const [selectedBarangay, setSelectedBarangay] = useState("");
 
     const { data, setData, post, errors, reset, processing } = useForm({
         register_number: "",
@@ -87,6 +88,21 @@ const Create = () => {
     const sexOptions = [
         { value: "M", label: "Male" },
         { value: "F", label: "Female" },
+    ];
+
+    const barangayOptions = [
+        { value: "Bicobian", label: "Bicobian" },
+        { value: "Dibulos", label: "Dibulos" },
+        { value: "Dicambangan", label: "Dicambangan" },
+        { value: "Dicaruyan", label: "Dicaruyan" },
+        { value: "Dicatian", label: "Dicatian" },
+        { value: "Dilakit", label: "Dilakit" },
+        { value: "Dimapnat", label: "Dimapnat" },
+        { value: "Dimapula", label: "Dimapula" },
+        { value: "Dimasalansan", label: "Dimasalansan" },
+        { value: "Dipudo", label: "Dipudo" },
+        { value: "Ditarum", label: "Ditarum" },
+        { value: "Sapinit", label: "Sapinit" },
     ];
 
     return (
@@ -196,36 +212,24 @@ const Create = () => {
                                 }
                                 error={errors.date_birth}
                             />
-                            <FormField
-                                id="place_birth"
-                                label="Place of Birth"
-                                value={data.place_birth}
-                                onChange={(e) =>
-                                    setData("place_birth", e.target.value)
-                                }
-                                error={errors.place_birth}
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <FormField
-                                id="father_name"
-                                label="Name of Father"
-                                value={data.father_name}
-                                onChange={(e) =>
-                                    setData("father_name", e.target.value)
-                                }
-                                error={errors.father_name}
-                            />
-                            <FormField
-                                id="mother_name"
-                                label="Name of Mother"
-                                value={data.mother_name}
-                                onChange={(e) =>
-                                    setData("mother_name", e.target.value)
-                                }
-                                error={errors.mother_name}
-                            />
+                            <div>
+                                <Label htmlFor="place_birth">
+                                    Place of birth
+                                </Label>
+                                <Select
+                                    value={barangayOptions.find(
+                                        (option) =>
+                                            option.value === selectedBarangay
+                                    )}
+                                    options={barangayOptions}
+                                    onChange={(selectedOption) => {
+                                        const value =
+                                            selectedOption?.value || "";
+                                        setSelectedBarangay(value);
+                                        setData("place_birth", value); // <-- sync with form data
+                                    }}
+                                />
+                            </div>
                         </div>
 
                         <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">

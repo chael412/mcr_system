@@ -20,9 +20,20 @@ return new class extends Migration
             $table->string('lastname');
             $table->enum('sex', ['M', 'F']);
             $table->date('date_birth')->nullable();
-            $table->string('place_birth')->nullable();
-            $table->string('father_name');
-            $table->string('mother_name');
+            $table->enum('place_birth', [
+                'Bicobian',
+                'Dibulos',
+                'Dicambangan',
+                'Dicaruyan',
+                'Dicatian',
+                'Dilakit',
+                'Dimapnat',
+                'Dimapula',
+                'Dimasalansan',
+                'Dipudo',
+                'Ditarum',
+                'Sapinit',
+            ])->nullable();
             $table->string('file')->nullable();
             $table->timestamps();
         });

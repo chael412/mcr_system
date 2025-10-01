@@ -24,7 +24,7 @@ class BirthCertificateController extends Controller
             $birthCertificate->delete();
 
             return response()->json([
-                'message' => 'Birth certificate deleted successfully.'
+                'message' => 'Birth certificate record deleted successfully.'
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
@@ -46,8 +46,6 @@ class BirthCertificateController extends Controller
                 'sex' => 'required|string|max:10',
                 'date_birth' => 'required|date',
                 'place_birth' => 'nullable|string|max:255',
-                'father_name' => 'nullable|string|max:255',
-                'mother_name' => 'nullable|string|max:255',
                 'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
             ]);
 
@@ -82,13 +80,11 @@ class BirthCertificateController extends Controller
                 'sex' => $validated['sex'],
                 'date_birth' => $validated['date_birth'],
                 'place_birth' => $validated['place_birth'] ?? "",
-                'father_name' => $validated['father_name'] ?? "",
-                'mother_name' => $validated['mother_name'] ?? "",
                 'file' => $filePath,
             ]);
 
             return response()->json([
-                'message' => 'Birth certificate updated successfully.',
+                'message' => 'Birth certificate record updated successfully.',
                 'birth' => $birthCertificate,
             ], 200);
         } catch (\Exception $e) {
@@ -111,8 +107,6 @@ class BirthCertificateController extends Controller
                 'sex' => 'required|string|max:10',
                 'date_birth' => 'required|date',
                 'place_birth' => 'nullable|string|max:255',
-                'father_name' => 'nullable|string|max:255',
-                'mother_name' => 'nullable|string|max:255',
                 'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
             ]);
 
@@ -150,16 +144,12 @@ class BirthCertificateController extends Controller
                 'sex' => $validated['sex'],
                 'date_birth' => $validated['date_birth'],
                 'place_birth' => $validated['place_birth'] ?? "",
-                'father_name' => $validated['father_name'] ?? "",
-                'mother_name' => $validated['mother_name'] ?? "",
                 'file' => $filePath,
             ]);
 
 
-
-
             return response()->json([
-                'message' => 'BirthCertificate added successfully.',
+                'message' => 'Birth certificate record added successfully.',
                 'birth' => $birth,
             ], 201);
         } catch (\Exception $e) {
