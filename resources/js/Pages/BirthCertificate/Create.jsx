@@ -37,8 +37,6 @@ const Create = () => {
         sex: "",
         date_birth: "",
         place_birth: "",
-        father_name: "",
-        mother_name: "",
         file: "",
     });
 
@@ -56,8 +54,6 @@ const Create = () => {
         formData.append("sex", data.sex);
         formData.append("date_birth", data.date_birth);
         formData.append("place_birth", data.place_birth);
-        formData.append("father_name", data.father_name);
-        formData.append("mother_name", data.mother_name);
         formData.append("register_number", data.register_number);
         formData.append("date_of_registration", data.date_of_registration);
         formData.append("file", data.file);
