@@ -180,7 +180,7 @@ const Edit = ({ death }) => {
                                 disabled={processing}
                                 className="px-6 py-2"
                             >
-                                Save
+                                Update changes
                             </Button>
                         </div>
                     </form>

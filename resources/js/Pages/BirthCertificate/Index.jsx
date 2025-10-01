@@ -247,7 +247,7 @@ const Index = () => {
                                                     }
                                                     className="hover:bg-gray-200 cursor-pointer"
                                                 >
-                                                    Print PDF
+                                                    Print File
                                                 </DropdownMenuItem>
 
                                                 <Link
