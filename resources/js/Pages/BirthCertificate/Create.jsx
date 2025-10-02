@@ -116,6 +116,18 @@ const Create = () => {
         >
             <Head title="Birth Certificates" />
 
+            {/* overlay goes here */}
+            {isSaving && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white px-6 py-4 rounded-lg shadow-md flex items-center space-x-3">
+                        <ClipLoader size={28} color="#16a34a" />
+                        <span className="text-lg font-semibold text-gray-700">
+                            Saving...
+                        </span>
+                    </div>
+                </div>
+            )}
+
             <div className=" flex justify-center mb-5">
                 {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
 
