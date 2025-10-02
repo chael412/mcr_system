@@ -120,7 +120,7 @@ const Index = () => {
                     <div className="flex w-full max-w-md">
                         <Input
                             type="text"
-                            placeholder="Search by lastname..."
+                            placeholder="Search by firstname or lastname..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full p-2 border rounded-md"

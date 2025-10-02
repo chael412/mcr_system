@@ -175,9 +175,11 @@ class BirthCertificateController extends Controller
                 'middlename',
                 'sex',
                 'place_birth',
+                'date_birth',
                 'father_name',
                 'mother_name',
                 'created_at',
+                'date_of_registration'
             ];
 
             if (!in_array($sortColumn, $validSortColumns)) {
