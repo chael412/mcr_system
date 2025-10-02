@@ -95,6 +95,7 @@ const Edit = ({ birth }) => {
     };
 
     const barangayOptions = [
+        { value: "N/A", label: "N/A" },
         { value: "Bicobian", label: "Bicobian" },
         { value: "Dibulos", label: "Dibulos" },
         { value: "Dicambangan", label: "Dicambangan" },
