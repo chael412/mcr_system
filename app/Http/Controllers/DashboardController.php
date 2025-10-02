@@ -15,13 +15,39 @@ class DashboardController extends Controller
 {
     public function stats()
     {
-        // Using query builder to count by place_birth
-        $birthStats = DB::table('birth_certificates')
+        // Define all possible barangays
+        $barangays = [
+            'Bicobian',
+            'Dibulos',
+            'Dicambangan',
+            'Dicaruyan',
+            'Dicatian',
+            'Dilakit',
+            'Dimapnat',
+            'Dimapula',
+            'Dimasalansan',
+            'Dipudo',
+            'Ditarum',
+            'Sapinit',
+            'N/A', // include the blank option if you want
+        ];
+
+        // Get counts from database
+        $birthCounts = DB::table('birth_certificates')
             ->select('place_birth', DB::raw('COUNT(*) as total'))
             ->groupBy('place_birth')
-            ->get();
+            ->pluck('total', 'place_birth'); // key = place_birth, value = count
 
-        return response()->json($birthStats);
+        // Merge counts with all barangays, default to 0 if not in DB
+        $result = [];
+        foreach ($barangays as $b) {
+            $result[] = [
+                'place_birth' => $b,
+                'total' => $birthCounts[$b] ?? 0,
+            ];
+        }
+
+        return response()->json($result);
     }
 
     public function index()
