@@ -80,7 +80,7 @@ const Create = () => {
                     setIsSaving(false);
                     alert("Birth certificate record updated successfully!");
                     window.location.reload();
-                }, 3000);
+                }, 1200);
             }
         } catch (error) {
             console.error("Error saving data:", error.response?.data || error);
