@@ -27,6 +27,7 @@ const Create = () => {
     const [selectedFamilyHeadId, setSelectedFamilyHeadId] = useState("");
     const [selectedSex, setSelectedSex] = useState("");
     const [selectedBarangay, setSelectedBarangay] = useState("");
+    const [isSaving, setIsSaving] = useState(false);
 
     const { data, setData, post, errors, reset, processing } = useForm({
         register_number: "",
@@ -46,6 +47,7 @@ const Create = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setIsSaving(true);
 
         const formData = new FormData();
         formData.append("firstname", data.firstname);
@@ -72,9 +74,12 @@ const Create = () => {
             );
 
             if (response.status === 200 || response.status === 201) {
-                alert("Birth certificate record added successfully!");
-                window.location.reload();
-                // reset();
+                // wait 3 seconds before reload
+                setTimeout(() => {
+                    setIsSaving(false);
+                    alert("Birth certificate record updated successfully!");
+                    window.location.reload();
+                }, 3000);
             }
         } catch (error) {
             console.error("Error saving data:", error.response?.data || error);
