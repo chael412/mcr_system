@@ -46,9 +46,14 @@ const Index = () => {
         totalPages,
         totalEntries,
     } = usePaginatedQuery({
-        queryKey: "paginate_births",
+        queryKey: ["paginate_births", barangayFilter], // include filter in key
         endpoint: "get_births",
+        params: {
+            place_birth: barangayFilter === "All" ? "" : barangayFilter,
+        },
     });
+
+    const [barangayFilter, setBarangayFilter] = useState("All");
 
     const API_URL = useAppUrl();
 
@@ -103,6 +108,23 @@ const Index = () => {
         }
     };
 
+    const barangayOptions = [
+        { value: "All", label: "All Barangays" },
+        { value: "Bicobian", label: "Bicobian" },
+        { value: "Dibulos", label: "Dibulos" },
+        { value: "Dicambangan", label: "Dicambangan" },
+        { value: "Dicaruyan", label: "Dicaruyan" },
+        { value: "Dicatian", label: "Dicatian" },
+        { value: "Dilakit", label: "Dilakit" },
+        { value: "Dimapnat", label: "Dimapnat" },
+        { value: "Dimapula", label: "Dimapula" },
+        { value: "Dimasalansan", label: "Dimasalansan" },
+        { value: "Dipudo", label: "Dipudo" },
+        { value: "Ditarum", label: "Ditarum" },
+        { value: "Sapinit", label: "Sapinit" },
+        { value: "N/A", label: "N/A" },
+    ];
+
     return (
         <AuthenticatedLayout
             header={
@@ -117,14 +139,38 @@ const Index = () => {
                     <h3>Birth Certificate Section</h3>
                 </div>
                 <div className="flex justify-between items-center mb-4">
-                    <div className="flex w-full max-w-md">
-                        <Input
-                            type="text"
-                            placeholder="Search by firstname or lastname..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full p-2 border rounded-md"
-                        />
+                    <div className="flex justify-between items-center mb-4">
+                        {/* Search Input */}
+                        <div className="flex w-full max-w-md">
+                            <Input
+                                type="text"
+                                placeholder="Search by firstname or lastname..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full p-2 border rounded-md"
+                            />
+                        </div>
+
+                        {/* Barangay Filter */}
+                        <select
+                            value={barangayFilter}
+                            onChange={(e) => setBarangayFilter(e.target.value)}
+                            className="ml-4 p-2 border rounded-md"
+                        >
+                            {barangayOptions.map((opt) => (
+                                <option key={opt.value} value={opt.value}>
+                                    {opt.label}
+                                </option>
+                            ))}
+                        </select>
+
+                        {/* Add New Button */}
+                        <Link href="/birth_certificates/create">
+                            <Button className="ml-4 ">
+                                <AiOutlinePlus />
+                                Add New
+                            </Button>
+                        </Link>
                     </div>
 
                     <Link href="/birth_certificates/create">

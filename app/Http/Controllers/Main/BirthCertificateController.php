@@ -161,14 +161,14 @@ class BirthCertificateController extends Controller
         }
     }
 
-    public function getBirths()
+    public function getBirths(Request $request)
     {
         try {
-            $search = request('search');
-            $sortColumn = request('sortColumn', 'lastname');
-            $sortDirection = request('sortDirection', 'asc');
+            $search = $request->query('search');
+            $sortColumn = $request->query('sortColumn', 'lastname');
+            $sortDirection = $request->query('sortDirection', 'asc');
+            $placeBirth = $request->query('place_birth'); // filter param
 
-            // Define valid sort columns for BirthCertificate
             $validSortColumns = [
                 'lastname',
                 'firstname',
@@ -183,16 +183,22 @@ class BirthCertificateController extends Controller
             ];
 
             if (!in_array($sortColumn, $validSortColumns)) {
-                $sortColumn = 'lastname'; // fallback
+                $sortColumn = 'lastname';
             }
 
             $query = BirthCertificate::query();
 
+            // 🔍 Search filter
             if ($search) {
                 $query->where(function ($q) use ($search) {
-                    $q->where('lastname', 'like', '%' . $search . '%')
-                        ->orWhere('firstname', 'like', '%' . $search . '%');
+                    $q->where('lastname', 'like', "%{$search}%")
+                        ->orWhere('firstname', 'like', "%{$search}%");
                 });
+            }
+
+            // 🏘 Barangay filter (default: show all if empty)
+            if (!empty($placeBirth) && $placeBirth !== 'All') {
+                $query->where('place_birth', $placeBirth);
             }
 
             $births = $query->orderBy($sortColumn, $sortDirection)->paginate(50);
@@ -200,11 +206,12 @@ class BirthCertificateController extends Controller
             return response()->json($births);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Something went wrong while fetching family members.',
+                'error' => 'Something went wrong while fetching birth records.',
                 'message' => $e->getMessage(),
             ], 500);
         }
     }
+
 
 
     /**
