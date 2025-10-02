@@ -60,7 +60,7 @@ const Index = () => {
         { key: "lastname", label: "Person Name" },
         { key: "sex", label: "Sex" },
         { key: "date_birth", label: "Date of Birth" },
-        { key: "place_birth", label: "Place of Birth" },
+        { key: "place_birth", label: "Barangay" },
         { key: "", label: "Action" },
     ];
 

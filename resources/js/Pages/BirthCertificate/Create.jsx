@@ -228,9 +228,7 @@ const Create = () => {
                                 error={errors.date_birth}
                             />
                             <div>
-                                <Label htmlFor="place_birth">
-                                    Place of birth
-                                </Label>
+                                <Label htmlFor="place_birth">Barangay</Label>
                                 <Select
                                     value={barangayOptions.find(
                                         (option) =>
