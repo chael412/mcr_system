@@ -82,7 +82,7 @@ const Edit = ({ birth }) => {
             );
 
             if (response.status === 200 || response.status === 201) {
-                alert("BirthCertificate record updated successfully!");
+                alert("Birth certificate record updated successfully!");
                 window.location.reload();
                 // reset();
             }

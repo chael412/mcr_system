@@ -78,7 +78,7 @@ const Create = () => {
                 // wait 3 seconds before reload
                 setTimeout(() => {
                     setIsSaving(false);
-                    alert("Birth certificate record updated successfully!");
+                    alert("Birth certificate record added successfully!");
                     window.location.reload();
                 }, 1000);
             }
