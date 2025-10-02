@@ -1,66 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { AiFillFileText } from "react-icons/ai";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import { MdAccountCircle } from "react-icons/md";
 import ReactApexChart from "react-apexcharts";
-import axios from "axios";
-import UseAppUrl from "@/hooks/UseAppUrl";
-import SkeletonCard from "@/Components/SkeletonCard";
-import { AiFillFileText } from "react-icons/ai";
 
-export default function Dashboard({ birth, marriage, death }) {
-    const API_URL = UseAppUrl();
-    const [chartLoading, setChartLoading] = useState(true);
-    const [chartData, setChartData] = useState({
-        series: [],
-        options: {
-            chart: { type: "pie", width: 380 },
-            labels: [],
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: { width: 200 },
-                        legend: { position: "bottom" },
-                    },
-                },
-            ],
-        },
-    });
-
-    useEffect(() => {
-        setChartLoading(true);
-
-        axios
-            .get(`${API_URL}/api/birth-certificates/stats`)
-            .then((res) => {
-                const data = res.data;
-
-                // Map data to series and labels
-                const series = data.map((item) => item.total);
-                const labels = data.map((item) => item.place_birth);
-
-                setChartData({
-                    series,
-                    options: {
-                        ...chartData.options,
-                        labels,
-                    },
-                });
-            })
-            .catch((err) => console.error(err))
-            .finally(() => setChartLoading(false));
-    }, []);
-
+export default function Page({ birth, marriage, death }) {
     return (
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Birth Certificates
+                    Dashboard
                 </h2>
             }
         >
-            <Head title="Birth Certificates Dashboard" />
-
+            <Head title="Dashboard" />
             <div className="p-6 grid grid-cols-3 gap-4">
                 <div className="bg-white p-6 rounded-xl shadow-md h-[140px] w-[300px]">
                     <div className="flex items-center space-x-4">
@@ -113,20 +66,6 @@ export default function Dashboard({ birth, marriage, death }) {
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div className="p-6">
-                <h1 className="text-2xl font-bold mb-4">Births per Barangay</h1>
-                {chartLoading ? (
-                    <SkeletonCard />
-                ) : (
-                    <ReactApexChart
-                        options={chartData.options}
-                        series={chartData.series}
-                        type="pie"
-                        width={420}
-                    />
-                )}
             </div>
         </AuthenticatedLayout>
     );
