@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Main\BarangayController;
 use App\Http\Controllers\Main\BirthCertificateController;
 use App\Http\Controllers\Main\DeathCertificateController;
@@ -52,3 +53,7 @@ Route::get('get_deaths', [DeathCertificateController::class, 'getDeaths']);
 Route::post('/store_deathcertificate', [DeathCertificateController::class, 'storeDeathCertificate']);
 Route::put('/update_deathcertificate/{id}', [DeathCertificateController::class, 'updatDeathCertificate']);
 Route::delete('/delete_death/{id}', [DeathCertificateController::class, 'destroyDeathCertificate']);
+
+
+//===========================================Dashboard Controller Section==========================================================
+Route::get('/birth-certificates/stats', [DashboardController::class, 'stats']);
