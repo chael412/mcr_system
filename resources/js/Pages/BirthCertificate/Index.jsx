@@ -164,14 +164,6 @@ const Index = () => {
                                 </option>
                             ))}
                         </select>
-
-                        {/* Add New Button */}
-                        <Link href="/birth_certificates/create">
-                            <Button className="ml-4 ">
-                                <AiOutlinePlus />
-                                Add New
-                            </Button>
-                        </Link>
                     </div>
 
                     <Link href="/birth_certificates/create">
