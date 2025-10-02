@@ -116,7 +116,10 @@ export default function Dashboard({ birth, marriage, death }) {
             </div>
 
             <div className="p-6">
-                <h1 className="text-2xl font-bold mb-4">Births per Barangay</h1>
+                <h1 className="text-lg font-bold mb-4">
+                    Birth Certificates Issued per Barangay
+                </h1>
+
                 {chartLoading ? (
                     <SkeletonCard />
                 ) : (
