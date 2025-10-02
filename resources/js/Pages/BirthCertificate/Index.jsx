@@ -33,6 +33,8 @@ import axios from "axios";
 import useAppUrl from "@/hooks/useAppUrl";
 
 const Index = () => {
+    const [barangayFilter, setBarangayFilter] = useState("All");
+
     const {
         data: birth_paginate,
         isLoading,
@@ -52,8 +54,6 @@ const Index = () => {
             place_birth: barangayFilter === "All" ? "" : barangayFilter,
         },
     });
-
-    const [barangayFilter, setBarangayFilter] = useState("All");
 
     const API_URL = useAppUrl();
 
