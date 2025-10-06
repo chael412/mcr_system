@@ -49,16 +49,20 @@ const Index = () => {
         totalPages,
         totalEntries,
     } = usePaginatedQuery({
-        queryKey: ["paginate_births", barangayFilter], // include filter in key
+        queryKey: ["paginate_births", barangayFilter],
         endpoint: "get_births",
-        params: {
+        queryParams: {
             place_birth: barangayFilter === "All" ? "" : barangayFilter,
         },
     });
 
     const API_URL = useAppUrl();
 
-    console.log(birth_paginate);
+    //console.log(birth_paginate);
+    // 🧩 Add this line:
+    console.log("Fetching births with:", {
+        place_birth: barangayFilter === "All" ? "" : barangayFilter,
+    });
 
     const columns = [
         { key: "register_number", label: "Register Number" },
