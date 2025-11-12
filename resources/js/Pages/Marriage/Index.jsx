@@ -57,6 +57,7 @@ const Index = () => {
         { key: "date_of_registration", label: "Date of Registration" },
         { key: "husband_lastname", label: "Husband Name" },
         { key: "wife_lastname", label: "Wife Name" },
+        { key: "place_marriage", label: "Place Marriage" },
         { key: "", label: "Action" },
     ];
 
@@ -82,6 +83,11 @@ const Index = () => {
     };
 
     const handlePrintPdf = (filePath) => {
+        if (!filePath) {
+            alert("No file uploaded for this record.");
+            return;
+        }
+
         const fileUrl = `${window.location.origin}/${filePath}`;
         const win = window.open(fileUrl, "_blank");
         if (win) {
@@ -203,6 +209,9 @@ const Index = () => {
                                         {member.wife_lastname},{" "}
                                         {member.wife_firstname}{" "}
                                         {member.wife_middlename ?? ""}
+                                    </TableCell>
+                                    <TableCell className="border-2 py-0 px-2">
+                                        {member.place_marriage ?? "N/A"}
                                     </TableCell>
 
                                     <TableCell className="border-2 py-0 px-2">

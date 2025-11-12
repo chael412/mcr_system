@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import Select from "react-select";
 import useAppUrl from "@/hooks/useAppUrl";
+
 import axios from "axios";
 
 const Create = () => {
@@ -26,6 +27,7 @@ const Create = () => {
     const [barangays, setBarangays] = useState([]);
     const [selectedFamilyHeadId, setSelectedFamilyHeadId] = useState("");
     const [selectedSex, setSelectedSex] = useState("");
+    const [selectedBarangay, setSelectedBarangay] = useState("");
 
     const { data, setData, post, errors, reset, processing } = useForm({
         register_number: "",
@@ -36,6 +38,7 @@ const Create = () => {
         wife_firstname: "",
         wife_middlename: "",
         wife_lastname: "",
+        place_marriage: "",
         file: "",
     });
 
@@ -55,6 +58,7 @@ const Create = () => {
         formData.append("wife_lastname", data.wife_lastname);
         formData.append("register_number", data.register_number);
         formData.append("date_of_registration", data.date_of_registration);
+        formData.append("place_marriage", data.place_marriage);
         formData.append("file", data.file);
 
         try {
@@ -79,6 +83,22 @@ const Create = () => {
             console.error("Error saving data:", error.response?.data || error);
         }
     };
+
+    const barangayOptions = [
+        { value: "N/A", label: "N/A" },
+        { value: "Bicobian", label: "Bicobian" },
+        { value: "Dibulos", label: "Dibulos" },
+        { value: "Dicambangan", label: "Dicambangan" },
+        { value: "Dicaruyan", label: "Dicaruyan" },
+        { value: "Dicatian", label: "Dicatian" },
+        { value: "Dilakit", label: "Dilakit" },
+        { value: "Dimapnat", label: "Dimapnat" },
+        { value: "Dimapula", label: "Dimapula" },
+        { value: "Dimasalansan", label: "Dimasalansan" },
+        { value: "Dipudo", label: "Dipudo" },
+        { value: "Ditarum", label: "Ditarum" },
+        { value: "Sapinit", label: "Sapinit" },
+    ];
 
     return (
         <AuthenticatedLayout
@@ -108,7 +128,7 @@ const Create = () => {
                                 />
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                             <FormField
                                 id="regsistry_number"
                                 label="Registry Number"
@@ -131,6 +151,22 @@ const Create = () => {
                                 }
                                 error={errors.date_of_registration}
                             />
+                            <div>
+                                <Label htmlFor="place_marriage">Barangay</Label>
+                                <Select
+                                    value={barangayOptions.find(
+                                        (option) =>
+                                            option.value === selectedBarangay
+                                    )}
+                                    options={barangayOptions}
+                                    onChange={(selectedOption) => {
+                                        const value =
+                                            selectedOption?.value || "";
+                                        setSelectedBarangay(value);
+                                        setData("place_marriage", value); // <-- sync with form data
+                                    }}
+                                />
+                            </div>
                         </div>
                         <hr />
                         <div>

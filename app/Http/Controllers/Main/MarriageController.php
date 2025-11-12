@@ -46,6 +46,7 @@ class MarriageController extends Controller
                 'wife_firstname' => 'required|string|max:255',
                 'wife_middlename' => 'nullable|string|max:255',
                 'wife_lastname' => 'required|string|max:255',
+                'place_marriage' => 'nullable|string|max:255',
                 'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
             ]);
 
@@ -62,7 +63,7 @@ class MarriageController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileName = $lastname . $firstname . '_marriageCertificate.' . $extension;
 
-                $destinationPath = public_path('marriaages');
+                $destinationPath = public_path('marriages');
                 if (!is_dir($destinationPath)) {
                     mkdir($destinationPath, 0755, true);
                 }
@@ -80,6 +81,7 @@ class MarriageController extends Controller
                 'wife_firstname' => $validated['wife_firstname'],
                 'wife_middlename' => $validated['wife_middlename'] ?? "",
                 'wife_lastname' => $validated['wife_lastname'],
+                'place_marriage' => $validated['place_marriage'],
                 'file' => $filePath,
             ]);
 
@@ -107,6 +109,7 @@ class MarriageController extends Controller
                 'wife_firstname' => 'required|string|max:255',
                 'wife_middlename' => 'nullable|string|max:255',
                 'wife_lastname' => 'required|string|max:255',
+                'place_marriage' => 'nullable|string|max:255',
                 'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
             ]);
 
@@ -144,11 +147,12 @@ class MarriageController extends Controller
                 'wife_firstname' => $validated['wife_firstname'],
                 'wife_middlename' => $validated['wife_middlename'] ?? "",
                 'wife_lastname' => $validated['wife_lastname'],
+                'place_marriage' => $validated['place_marriage'],
                 'file' => $filePath,
             ]);
 
             return response()->json([
-                'message' => 'Marriage certificate added successfully.',
+                'message' => 'Marriage certificate record added successfully.',
                 'marriage' => $marriage,
             ], 201);
         } catch (\Exception $e) {
@@ -160,12 +164,13 @@ class MarriageController extends Controller
         }
     }
 
-    public function getMarriages()
+    public function getMarriages(Request $request)
     {
         try {
-            $search = request('search');
-            $sortColumn = request('sortColumn', 'husband_lastname');
-            $sortDirection = request('sortDirection', 'asc');
+            $search = $request->query('search');
+            $sortColumn = $request->query('sortColumn', 'husband_lastname');
+            $sortDirection = $request->query('sortDirection', 'asc');
+            $placeBirth = $request->query('place_birth');
 
             // ✅ Valid sort columns
             $validSortColumns = [
@@ -173,6 +178,7 @@ class MarriageController extends Controller
                 'date_of_registration',
                 'husband_lastname',
                 'wife_lastname',
+                'place_birth',
                 'created_at',
             ];
 
@@ -187,6 +193,11 @@ class MarriageController extends Controller
                     $q->where('husband_lastname', 'like', '%' . $search . '%')
                         ->orWhere('wife_lastname', 'like', '%' . $search . '%');
                 });
+            }
+
+            // 🏘 Barangay filter (default: show all if empty)
+            if (!empty($placeBirth) && $placeBirth !== 'All') {
+                $query->where('place_birth', $placeBirth);
             }
 
             $marriages = $query->orderBy($sortColumn, $sortDirection)->paginate(50);

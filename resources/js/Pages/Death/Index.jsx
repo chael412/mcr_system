@@ -58,6 +58,7 @@ const Index = () => {
         { key: "register_number", label: "Register Number" },
         { key: "date_of_registration", label: "Date of Registration" },
         { key: "lastname", label: "Person Name" },
+        { key: "place_death", label: "Place Death" },
         { key: "", label: "Action" },
     ];
 
@@ -198,6 +199,9 @@ const Index = () => {
                                     <TableCell className="border-2 py-0 px-2">
                                         {member.lastname}, {member.firstname}{" "}
                                         {member.middlename ?? ""}
+                                    </TableCell>
+                                    <TableCell className="border-2 py-0 px-2">
+                                        {member.place_death ?? ""}
                                     </TableCell>
 
                                     <TableCell className="border-2 py-0 px-2">

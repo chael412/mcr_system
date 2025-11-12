@@ -34,6 +34,7 @@ const Edit = ({ death }) => {
         lastname: death.lastname,
         register_number: death.register_number,
         date_of_registration: death.date_of_registration,
+        place_death: death.place_death,
         file: "",
     });
 
@@ -60,6 +61,7 @@ const Edit = ({ death }) => {
         formData.append("lastname", data.lastname);
         formData.append("register_number", data.register_number);
         formData.append("date_of_registration", data.date_of_registration);
+        formData.append("place_death", data.place_death);
         formData.append("file", data.file);
 
         try {
@@ -70,7 +72,7 @@ const Edit = ({ death }) => {
                     headers: {
                         "X-Requested-With": "XMLHttpRequest",
                         "Content-Type": "multipart/form-data",
-                        "X-HTTP-Method-Override": "PUT", // or PATCH, depending on your API
+                        "X-HTTP-Method-Override": "PUT",
                     },
                 }
             );
@@ -87,6 +89,22 @@ const Edit = ({ death }) => {
             );
         }
     };
+
+    const barangayOptions = [
+        { value: "N/A", label: "N/A" },
+        { value: "Bicobian", label: "Bicobian" },
+        { value: "Dibulos", label: "Dibulos" },
+        { value: "Dicambangan", label: "Dicambangan" },
+        { value: "Dicaruyan", label: "Dicaruyan" },
+        { value: "Dicatian", label: "Dicatian" },
+        { value: "Dilakit", label: "Dilakit" },
+        { value: "Dimapnat", label: "Dimapnat" },
+        { value: "Dimapula", label: "Dimapula" },
+        { value: "Dimasalansan", label: "Dimasalansan" },
+        { value: "Dipudo", label: "Dipudo" },
+        { value: "Ditarum", label: "Ditarum" },
+        { value: "Sapinit", label: "Sapinit" },
+    ];
 
     return (
         <AuthenticatedLayout
@@ -110,6 +128,22 @@ const Edit = ({ death }) => {
                                 <Input
                                     type="file"
                                     onChange={handleFileChange}
+                                />
+                            </div>
+                            <div className="mt-2">
+                                <Label htmlFor="place_death">Barangay</Label>
+                                <Select
+                                    value={barangayOptions.find(
+                                        (option) =>
+                                            option.value === data.place_death
+                                    )}
+                                    options={barangayOptions}
+                                    onChange={(selectedOption) =>
+                                        setData(
+                                            "place_death",
+                                            selectedOption?.value || ""
+                                        )
+                                    }
                                 />
                             </div>
                         </div>

@@ -26,6 +26,7 @@ const Create = () => {
     const [barangays, setBarangays] = useState([]);
     const [selectedFamilyHeadId, setSelectedFamilyHeadId] = useState("");
     const [selectedSex, setSelectedSex] = useState("");
+    const [selectedBarangay, setSelectedBarangay] = useState("");
 
     const { data, setData, post, errors, reset, processing } = useForm({
         register_number: "",
@@ -33,6 +34,7 @@ const Create = () => {
         firstname: "",
         middlename: "",
         lastname: "",
+        place_death: "",
         file: "",
     });
 
@@ -49,6 +51,7 @@ const Create = () => {
         formData.append("lastname", data.lastname);
         formData.append("register_number", data.register_number);
         formData.append("date_of_registration", data.date_of_registration);
+        formData.append("place_death", data.place_death);
         formData.append("file", data.file);
 
         try {
@@ -78,6 +81,22 @@ const Create = () => {
         { value: "F", label: "Female" },
     ];
 
+    const barangayOptions = [
+        { value: "N/A", label: "N/A" },
+        { value: "Bicobian", label: "Bicobian" },
+        { value: "Dibulos", label: "Dibulos" },
+        { value: "Dicambangan", label: "Dicambangan" },
+        { value: "Dicaruyan", label: "Dicaruyan" },
+        { value: "Dicatian", label: "Dicatian" },
+        { value: "Dilakit", label: "Dilakit" },
+        { value: "Dimapnat", label: "Dimapnat" },
+        { value: "Dimapula", label: "Dimapula" },
+        { value: "Dimasalansan", label: "Dimasalansan" },
+        { value: "Dipudo", label: "Dipudo" },
+        { value: "Ditarum", label: "Ditarum" },
+        { value: "Sapinit", label: "Sapinit" },
+    ];
+
     return (
         <AuthenticatedLayout
             header={
@@ -101,6 +120,22 @@ const Create = () => {
                                 <Input
                                     type="file"
                                     onChange={handleFileChange}
+                                />
+                            </div>
+                            <div className="mt-2">
+                                <Label htmlFor="place_death">Barangay</Label>
+                                <Select
+                                    value={barangayOptions.find(
+                                        (option) =>
+                                            option.value === selectedBarangay
+                                    )}
+                                    options={barangayOptions}
+                                    onChange={(selectedOption) => {
+                                        const value =
+                                            selectedOption?.value || "";
+                                        setSelectedBarangay(value);
+                                        setData("place_death", value);
+                                    }}
                                 />
                             </div>
                         </div>

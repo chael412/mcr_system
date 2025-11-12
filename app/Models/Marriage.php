@@ -15,6 +15,7 @@ class Marriage extends Model
         'wife_firstname',
         'wife_middlename',
         'wife_lastname',
+        'place_marriage',
         'file'
     ];
 }

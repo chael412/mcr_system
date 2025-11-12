@@ -51,9 +51,11 @@ Route::delete('/delete_marriage/{id}', [MarriageController::class, 'destroyMarri
 //===========================================Death Certificate Section==========================================================
 Route::get('get_deaths', [DeathCertificateController::class, 'getDeaths']);
 Route::post('/store_deathcertificate', [DeathCertificateController::class, 'storeDeathCertificate']);
-Route::put('/update_deathcertificate/{id}', [DeathCertificateController::class, 'updatDeathCertificate']);
+Route::put('/update_deathcertificate/{id}', [DeathCertificateController::class, 'updateDeathCertificate']);
 Route::delete('/delete_death/{id}', [DeathCertificateController::class, 'destroyDeathCertificate']);
 
 
 //===========================================Dashboard Controller Section==========================================================
 Route::get('/birth-certificates/stats', [DashboardController::class, 'stats']);
+Route::get('/marriage-certificates/stats', [DashboardController::class, 'statMarriages']);
+Route::get('/death-certificates/stats', [DashboardController::class, 'statDeaths']);

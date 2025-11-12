@@ -35,7 +35,7 @@ class DeathCertificateController extends Controller
         }
     }
 
-    public function updatDeathCertificate(Request $request, $id)
+    public function updateDeathCertificate(Request $request, $id)
     {
         try {
             $validated = $request->validate([
@@ -44,6 +44,7 @@ class DeathCertificateController extends Controller
                 'firstname' => 'required|string|max:255',
                 'middlename' => 'nullable|string|max:255',
                 'lastname' => 'required|string|max:255',
+                'place_death' => 'nullable|string|max:255',
                 'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
             ]);
 
@@ -76,6 +77,7 @@ class DeathCertificateController extends Controller
                 'firstname' => $validated['firstname'],
                 'middlename' => $validated['middlename'] ?? "",
                 'lastname' => $validated['lastname'],
+                'place_death' => $validated['place_death'],
                 'file' => $filePath,
             ]);
 
@@ -100,6 +102,7 @@ class DeathCertificateController extends Controller
                 'firstname' => 'required|string|max:255',
                 'middlename' => 'nullable|string|max:255',
                 'lastname' => 'required|string|max:255',
+                'place_death' => 'nullable|string|max:255',
                 'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
             ]);
 
@@ -134,6 +137,7 @@ class DeathCertificateController extends Controller
                 'firstname' => $validated['firstname'],
                 'middlename' => $validated['middlename'] ?? "",
                 'lastname' => $validated['lastname'],
+                'place_death' => $validated['place_death'],
                 'file' => $filePath,
             ]);
 
@@ -151,20 +155,22 @@ class DeathCertificateController extends Controller
         }
     }
 
-    public function getDeaths()
+    public function getDeaths(Request $request)
     {
         try {
-            $search = request('search');
-            $sortColumn = request('sortColumn', 'lastname');
-            $sortDirection = request('sortDirection', 'asc');
+            $search = $request->query('search');
+            $sortColumn = $request->query('sortColumn', 'lastname');
+            $sortDirection = $request->query('sortDirection', 'asc');
+            $placeDeath = $request->query('place_death');
 
-            // Define valid sort columns for BirthCertificate
+            // ✅ Valid sort columns
             $validSortColumns = [
                 'register_number',
                 'date_of_registration',
                 'lastname',
                 'firstname',
                 'middlename',
+                'place_death',
                 'created_at',
             ];
 
@@ -174,23 +180,32 @@ class DeathCertificateController extends Controller
 
             $query = DeathCertificate::query();
 
+            // 🔍 Search filter
             if ($search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('lastname', 'like', '%' . $search . '%')
-                        ->orWhere('firstname', 'like', '%' . $search . '%');
+                        ->orWhere('firstname', 'like', '%' . $search . '%')
+                        ->orWhere('middlename', 'like', '%' . $search . '%');
                 });
             }
 
-            $births = $query->orderBy($sortColumn, $sortDirection)->paginate(50);
+            // 🏘 Filter by place of death (if not "All")
+            if (!empty($placeDeath) && $placeDeath !== 'All') {
+                $query->where('place_death', $placeDeath);
+            }
 
-            return response()->json($births);
+            // 📋 Sorting and pagination
+            $deaths = $query->orderBy($sortColumn, $sortDirection)->paginate(50);
+
+            return response()->json($deaths);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Something went wrong while fetching family data.',
+                'error' => 'Something went wrong while fetching death records.',
                 'message' => $e->getMessage(),
             ], 500);
         }
     }
+
 
 
     /**

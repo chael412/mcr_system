@@ -33,6 +33,7 @@ const Edit = ({ marriage }) => {
         wife_firstname: marriage.wife_firstname || "",
         wife_middlename: marriage.wife_middlename || "",
         wife_lastname: marriage.wife_lastname || "",
+        place_marriage: marriage.place_marriage,
         file: "",
     });
 
@@ -52,6 +53,7 @@ const Edit = ({ marriage }) => {
         formData.append("wife_lastname", data.wife_lastname);
         formData.append("register_number", data.register_number);
         formData.append("date_of_registration", data.date_of_registration);
+        formData.append("place_marriage", data.place_marriage);
         formData.append("file", data.file);
 
         try {
@@ -78,6 +80,21 @@ const Edit = ({ marriage }) => {
             );
         }
     };
+    const barangayOptions = [
+        { value: "N/A", label: "N/A" },
+        { value: "Bicobian", label: "Bicobian" },
+        { value: "Dibulos", label: "Dibulos" },
+        { value: "Dicambangan", label: "Dicambangan" },
+        { value: "Dicaruyan", label: "Dicaruyan" },
+        { value: "Dicatian", label: "Dicatian" },
+        { value: "Dilakit", label: "Dilakit" },
+        { value: "Dimapnat", label: "Dimapnat" },
+        { value: "Dimapula", label: "Dimapula" },
+        { value: "Dimasalansan", label: "Dimasalansan" },
+        { value: "Dipudo", label: "Dipudo" },
+        { value: "Ditarum", label: "Ditarum" },
+        { value: "Sapinit", label: "Sapinit" },
+    ];
 
     return (
         <AuthenticatedLayout
@@ -104,7 +121,7 @@ const Edit = ({ marriage }) => {
                                 />
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                             <FormField
                                 id="regsistry_number"
                                 label="Registry Number"
@@ -127,6 +144,22 @@ const Edit = ({ marriage }) => {
                                 }
                                 error={errors.date_of_registration}
                             />
+                            <div>
+                                <Label htmlFor="place_marriage">Barangay</Label>
+                                <Select
+                                    value={barangayOptions.find(
+                                        (option) =>
+                                            option.value === data.place_marriage
+                                    )}
+                                    options={barangayOptions}
+                                    onChange={(selectedOption) =>
+                                        setData(
+                                            "place_marriage",
+                                            selectedOption?.value || ""
+                                        )
+                                    }
+                                />
+                            </div>
                         </div>
                         <hr />
                         <div>

@@ -12,6 +12,7 @@ class DeathCertificate extends Model
         'firstname',
         'middlename',
         'lastname',
+        'place_death',
         'file'
     ];
 }

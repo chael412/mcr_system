@@ -13,6 +13,80 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    public function statDeaths()
+    {
+        // Define all possible barangays
+        $barangays = [
+            'Bicobian',
+            'Dibulos',
+            'Dicambangan',
+            'Dicaruyan',
+            'Dicatian',
+            'Dilakit',
+            'Dimapnat',
+            'Dimapula',
+            'Dimasalansan',
+            'Dipudo',
+            'Ditarum',
+            'Sapinit',
+            'N/A', // include the blank option if you want
+        ];
+
+        // Get counts from database
+        $deathCounts = DB::table('death_certificates')
+            ->select('place_death', DB::raw('COUNT(*) as total'))
+            ->groupBy('place_death')
+            ->pluck('total', 'place_death'); // key = place_birth, value = count
+
+        // Merge counts with all barangays, default to 0 if not in DB
+        $result = [];
+        foreach ($barangays as $b) {
+            $result[] = [
+                'place_death' => $b,
+                'total' => $deathCounts[$b] ?? 0,
+            ];
+        }
+
+        return response()->json($result);
+    }
+
+    public function statMarriages()
+    {
+        // Define all possible barangays
+        $barangays = [
+            'Bicobian',
+            'Dibulos',
+            'Dicambangan',
+            'Dicaruyan',
+            'Dicatian',
+            'Dilakit',
+            'Dimapnat',
+            'Dimapula',
+            'Dimasalansan',
+            'Dipudo',
+            'Ditarum',
+            'Sapinit',
+            'N/A', // include the blank option if you want
+        ];
+
+        // Get counts from database
+        $marriageCounts = DB::table('marriages')
+            ->select('place_marriage', DB::raw('COUNT(*) as total'))
+            ->groupBy('place_marriage')
+            ->pluck('total', 'place_marriage'); // key = place_birth, value = count
+
+        // Merge counts with all barangays, default to 0 if not in DB
+        $result = [];
+        foreach ($barangays as $b) {
+            $result[] = [
+                'place_marriage' => $b,
+                'total' => $marriageCounts[$b] ?? 0,
+            ];
+        }
+
+        return response()->json($result);
+    }
+
     public function stats()
     {
         // Define all possible barangays
