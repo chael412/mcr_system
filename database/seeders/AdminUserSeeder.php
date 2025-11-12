@@ -17,20 +17,50 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-        // Create the admin role if it doesn't exist
+        // Ensure the admin role exists
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
-        // Create the user and assign the admin role
-        $user = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('123123123'), // Use a secure password
-            'email_verified_at' => Carbon::now(), // Automatically verify the email
-        ]);
+        // Admin accounts to create
+        $admins = [
+            // [
+            //     'name' => 'Admin',
+            //     'email' => 'admin@gmail.com',
+            // ],
+            [
+                'name' => 'Admin Two',
+                'email' => 'admin2@gmail.com',
+            ],
+            [
+                'name' => 'Admin Three',
+                'email' => 'admin3@gmail.com',
+            ],
+            [
+                'name' => 'Admin Four',
+                'email' => 'admin4@gmail.com',
+            ],
+            [
+                'name' => 'Admin Five',
+                'email' => 'admin5@gmail.com',
+            ],
+            [
+                'name' => 'Admin Six',
+                'email' => 'admin6@gmail.com',
+            ],
+        ];
 
-        // Assign the admin role to the user
-        $user->assignRole($adminRole);
+        foreach ($admins as $data) {
+            $user = User::firstOrCreate(
+                ['email' => $data['email']],
+                [
+                    'name' => $data['name'],
+                    'password' => Hash::make('123123123'),
+                    'email_verified_at' => Carbon::now(),
+                ]
+            );
 
-        $this->command->info("✅ Admin Users seeded successfully!");
+            $user->assignRole($adminRole);
+        }
+
+        $this->command->info("✅ Admin users seeded successfully!");
     }
 }
