@@ -27,6 +27,7 @@ const Create = () => {
     const [barangays, setBarangays] = useState([]);
     const [selectedFamilyHeadId, setSelectedFamilyHeadId] = useState("");
     const [selectedSex, setSelectedSex] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState("");
     const [selectedBarangay, setSelectedBarangay] = useState("");
     const [isSaving, setIsSaving] = useState(false);
 
@@ -39,6 +40,7 @@ const Create = () => {
         sex: "",
         date_birth: "",
         place_birth: "",
+        status: "",
         file: "",
     });
 
@@ -59,6 +61,7 @@ const Create = () => {
         formData.append("place_birth", data.place_birth);
         formData.append("register_number", data.register_number);
         formData.append("date_of_registration", data.date_of_registration);
+        formData.append("status", data.status);
         formData.append("file", data.file);
 
         try {
@@ -90,6 +93,11 @@ const Create = () => {
     const sexOptions = [
         { value: "M", label: "Male" },
         { value: "F", label: "Female" },
+    ];
+
+    const statusOptions = [
+        { value: "Legitimate", label: "Legitimate" },
+        { value: "Illegitimate", label: "Illegitimate" },
     ];
 
     const barangayOptions = [
@@ -143,6 +151,22 @@ const Create = () => {
                                 <Input
                                     type="file"
                                     onChange={handleFileChange}
+                                />
+                            </div>
+                            <div className="mt-2">
+                                <Label htmlFor="status">Remarks</Label>
+                                <Select
+                                    value={statusOptions.find(
+                                        (option) =>
+                                            option.value === selectedStatus
+                                    )}
+                                    options={statusOptions}
+                                    onChange={(selectedOption) => {
+                                        const value =
+                                            selectedOption?.value || "";
+                                        setSelectedStatus(value);
+                                        setData("status", value); // <-- sync with form data
+                                    }}
                                 />
                             </div>
                         </div>

@@ -70,6 +70,7 @@ const Index = () => {
         { key: "lastname", label: "Person Name" },
         { key: "sex", label: "Sex" },
         { key: "date_birth", label: "Date of Birth" },
+        { key: "status", label: "Remarks" },
         { key: "place_birth", label: "Barangay" },
         { key: "", label: "Action" },
     ];
@@ -265,6 +266,9 @@ const Index = () => {
                                                   "dd-MMM-yyyy"
                                               ).toUpperCase()
                                             : "n/a"}
+                                    </TableCell>
+                                    <TableCell className="border-2 py-0 px-2">
+                                        {member.status}
                                     </TableCell>
                                     <TableCell className="border-2 py-0 px-2">
                                         {member.place_birth ?? "n/a"}

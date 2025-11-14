@@ -15,6 +15,7 @@ class BirthCertificate extends Model
         'sex',
         'date_birth',
         'place_birth',
+        'status',
         'file'
     ];
 }

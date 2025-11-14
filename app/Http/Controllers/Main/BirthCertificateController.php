@@ -46,6 +46,7 @@ class BirthCertificateController extends Controller
                 'sex' => 'required|string|max:10',
                 'date_birth' => 'required|date',
                 'place_birth' => 'nullable|string|max:255',
+                'status' => 'nullable|string|max:255',
                 'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
             ]);
 
@@ -80,6 +81,7 @@ class BirthCertificateController extends Controller
                 'sex' => $validated['sex'],
                 'date_birth' => $validated['date_birth'],
                 'place_birth' => $validated['place_birth'] ?? "",
+                'status' => $validated['status'] ?? "",
                 'file' => $filePath,
             ]);
 
@@ -107,6 +109,7 @@ class BirthCertificateController extends Controller
                 'sex' => 'required|string|max:10',
                 'date_birth' => 'required|date',
                 'place_birth' => 'nullable|string|max:255',
+                'status' => 'nullable|string|max:255',
                 'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
             ]);
 
@@ -144,6 +147,7 @@ class BirthCertificateController extends Controller
                 'sex' => $validated['sex'],
                 'date_birth' => $validated['date_birth'],
                 'place_birth' => $validated['place_birth'] ?? "",
+                'status' => $validated['status'] ?? "",
                 'file' => $filePath,
             ]);
 
@@ -179,7 +183,8 @@ class BirthCertificateController extends Controller
                 'father_name',
                 'mother_name',
                 'created_at',
-                'date_of_registration'
+                'date_of_registration',
+                'status',
             ];
 
             if (!in_array($sortColumn, $validSortColumns)) {

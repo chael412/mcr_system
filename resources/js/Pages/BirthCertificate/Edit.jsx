@@ -26,6 +26,7 @@ const Edit = ({ birth }) => {
 
     const [heads, setHeads] = useState([]);
     const [selectedSex, setSelectedSex] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState("");
     const [selectedBarangay, setSelectedBarangay] = useState("");
 
     const { data, setData, patch, errors, reset, processing } = useForm({
@@ -37,17 +38,26 @@ const Edit = ({ birth }) => {
         place_birth: birth.place_birth,
         register_number: birth.register_number,
         date_of_registration: birth.date_of_registration,
+        status: birth.status,
         file: "",
     });
 
     useEffect(() => {
         setSelectedSex(birth.sex || "");
         setData("sex", birth.sex || "");
-    }, [birth.sex]);
+
+        setSelectedStatus(birth.status || "");
+        setData("status", birth.status || "");
+    }, [birth.sex, birth.status]);
 
     const sexOptions = [
         { value: "M", label: "Male" },
         { value: "F", label: "Female" },
+    ];
+
+    const statusOptions = [
+        { value: "Legitimate", label: "Legitimate" },
+        { value: "Illegitimate", label: "Illegitimate" },
     ];
 
     const handleFileChange = (e) => {
@@ -66,6 +76,7 @@ const Edit = ({ birth }) => {
         formData.append("place_birth", data.place_birth);
         formData.append("register_number", data.register_number);
         formData.append("date_of_registration", data.date_of_registration);
+        formData.append("status", data.status);
         formData.append("file", data.file);
 
         try {
@@ -132,6 +143,21 @@ const Edit = ({ birth }) => {
                                 <Input
                                     type="file"
                                     onChange={handleFileChange}
+                                />
+                            </div>
+                            <div className="mt-2">
+                                <Label htmlFor="status">Remarks</Label>
+                                <Select
+                                    value={statusOptions.find(
+                                        (option) => option.value === data.status
+                                    )}
+                                    options={statusOptions}
+                                    onChange={(selectedOption) =>
+                                        setData(
+                                            "status",
+                                            selectedOption?.value || ""
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
